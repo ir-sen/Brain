@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.brain.R
 import com.example.brain.databinding.FragmentGameBinding
+import com.example.brain.domain.entity.GameResult
+import com.example.brain.domain.entity.GameSettings
 import com.example.brain.domain.entity.Level
 
 
@@ -16,12 +18,16 @@ class GameFragment : Fragment() {
     private val binding: FragmentGameBinding
         get() = _binding ?: throw RuntimeException("FragmentGameBinding == null")
 
+
+    private lateinit var level: Level
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parsArgs()
     }
 
-    private lateinit var level: Level
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,7 +39,16 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.tvOption1.setOnClickListener {
+            launchFinishFragment(
+                GameResult(
+                true,
+                10,
+                10,
+                GameSettings(0, 0,0,0)
+            )
+            )
+        }
 
     }
 
@@ -46,6 +61,14 @@ class GameFragment : Fragment() {
         level = requireArguments().getSerializable(KEY_LEVEL) as Level
     }
 
+
+    private fun launchFinishFragment(result: GameResult) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.main_container, GameFinish.newInstance(result))
+            .addToBackStack(null)
+            .commit()
+
+    }
 
     companion object {
 

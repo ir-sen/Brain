@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.brain.R
 import com.example.brain.databinding.FragmentGameFinishBinding
+import com.example.brain.domain.entity.GameResult
 
 
 class GameFinish : Fragment() {
@@ -14,6 +15,14 @@ class GameFinish : Fragment() {
     private var _binding: FragmentGameFinishBinding? = null
     private val binding: FragmentGameFinishBinding
         get() = _binding ?: throw RuntimeException("FragmentGameFinishBinding == null")
+    private lateinit var gameSettingResult: GameResult
+
+    ;
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        parseArgs()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,13 +44,20 @@ class GameFinish : Fragment() {
         _binding = null
     }
 
+    private fun parseArgs() {
+        gameSettingResult = requireArguments().getSerializable(KEY_GAME_RESULT) as GameResult
+    }
+
+
 
     companion object {
 
-        fun newInstance() : GameFinish {
+        private const val KEY_GAME_RESULT = "game_result"
+
+        fun newInstance(result: GameResult) : GameFinish {
             return GameFinish().apply {
                 arguments = Bundle().apply {
-
+                    putSerializable(KEY_GAME_RESULT, result)
                 }
             }
         }
