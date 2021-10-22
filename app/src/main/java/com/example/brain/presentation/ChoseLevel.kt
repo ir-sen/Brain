@@ -62,6 +62,8 @@ class ChoseLevel : Fragment() {
 
     companion object {
 
+        const val NAME = "ChoseLevel"
+
         fun newInstance() : ChoseLevel {
             return ChoseLevel()
         }
