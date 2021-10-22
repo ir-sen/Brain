@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.brain.R
 import com.example.brain.databinding.FragmentChoseLevelBinding
+import com.example.brain.domain.entity.Level
 
 
 class ChoseLevel : Fragment() {
@@ -27,11 +28,43 @@ class ChoseLevel : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.apply {
+            testBtn.setOnClickListener {
+                launchGameFragment(Level.TEST)
+            }
+
+            easyBtn.setOnClickListener {
+                launchGameFragment(Level.EASY)
+            }
+
+            normalBtn.setOnClickListener {
+                launchGameFragment(Level.NORMAL)
+            }
+
+            hardBtn.setOnClickListener {
+                launchGameFragment(Level.HARD)
+            }
+        }
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun launchGameFragment(level: Level) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.main_container, GameFragment.newInstance(level))
+            .addToBackStack(null)
+            .commit()
+    }
+
+    companion object {
+
+        fun newInstance() : ChoseLevel {
+            return ChoseLevel()
+        }
     }
 
 }

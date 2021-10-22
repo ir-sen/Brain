@@ -35,4 +35,15 @@ class GameFinish : Fragment() {
         _binding = null
     }
 
+
+    companion object {
+
+        fun newInstance() : GameFinish {
+            return GameFinish().apply {
+                arguments = Bundle().apply {
+
+                }
+            }
+        }
+    }
 }
