@@ -19,7 +19,7 @@ class GameFinish : Fragment() {
         get() = _binding ?: throw RuntimeException("FragmentGameFinishBinding == null")
     private lateinit var gameSettingResult: GameResult
 
-    ;
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +46,10 @@ class GameFinish : Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
+        binding.buttonRetry.setOnClickListener {
+            retryGame()
+        }
 
     }
 
