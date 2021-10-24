@@ -55,7 +55,9 @@ class GameFinish : Fragment() {
     }
 
     private fun parseArgs() {
-        gameSettingResult = requireArguments().getSerializable(KEY_GAME_RESULT) as GameResult
+        requireArguments().getParcelable<GameResult>(KEY_GAME_RESULT)?.let {
+            gameSettingResult = it
+        }
     }
 
 
@@ -76,7 +78,7 @@ class GameFinish : Fragment() {
         fun newInstance(result: GameResult) : GameFinish {
             return GameFinish().apply {
                 arguments = Bundle().apply {
-                    putSerializable(KEY_GAME_RESULT, result)
+                    putParcelable(KEY_GAME_RESULT, result)
                 }
             }
         }
