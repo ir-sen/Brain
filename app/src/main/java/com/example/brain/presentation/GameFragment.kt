@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.brain.R
 import com.example.brain.databinding.FragmentGameBinding
 import com.example.brain.domain.entity.GameResult
@@ -57,7 +58,7 @@ class GameFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentGameBinding.inflate(inflater, container, false)
         return binding.root
@@ -141,10 +142,10 @@ class GameFragment : Fragment() {
 
 
     private fun launchFinishFragment(result: GameResult) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, GameFinish.newInstance(result))
-            .addToBackStack(null)
-            .commit()
+        val args = Bundle().apply {
+            putParcelable(GameFinish.KEY_GAME_RESULT, result)
+        }
+        findNavController().navigate(R.id.action_gameFragment_to_gameFinish, args)
 
     }
 
@@ -152,7 +153,7 @@ class GameFragment : Fragment() {
 
         const val NAME = "GameFragment"
 
-        private const val KEY_LEVEL = "level"
+        const val KEY_LEVEL = "level"
 
         fun newInstance(level: Level): GameFragment {
             return GameFragment().apply {
