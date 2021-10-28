@@ -38,7 +38,11 @@ class GameFinish : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupClickListeners()
+        bindViews()
+    }
 
+    private fun setupClickListeners() {
         // Get link activity and dispatcher add to click listener back press
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -50,8 +54,46 @@ class GameFinish : Fragment() {
         binding.buttonRetry.setOnClickListener {
             retryGame()
         }
-
     }
+
+    private fun bindViews() {
+        with(binding) {
+            emojiResult.setImageResource(getSmileResId())
+            tvRequiredAnswers.text = String.format(
+                getString(R.string.required_score),
+                gameSettingResult.gameSettings.minCountOfRightAnswers
+            )
+            tvScoreAnswers.text = String.format(
+                getString(R.string.score_answers),
+                gameSettingResult.countOfRightAnswers
+            )
+            tvRequiredPercentage.text = String.format(
+                getString(R.string.required_percentage),
+                gameSettingResult.gameSettings.minPercentOfRightAnswers
+            )
+            tvScorePercentage.text = String.format(
+                getString(R.string.score_percentage),
+                getPresentOfRightAnswers()
+            )
+        }
+    }
+
+    private fun getSmileResId() : Int {
+        return if (gameSettingResult.winner) {
+            R.drawable.ic_smile
+        } else {
+            R.drawable.ic_sad
+        }
+    }
+
+    private fun getPresentOfRightAnswers() = with(gameSettingResult){
+        if (countOfQuestion == 0) {
+            0
+        } else {
+            ((countOfRightAnswers / countOfQuestion.toDouble()) * 100).toInt()
+        }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
