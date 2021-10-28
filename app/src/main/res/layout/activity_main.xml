@@ -4,7 +4,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:name="com.example.brain.presentation.WelcomeFragment"
+    android:name="androidx.navigation.fragment.NavHostFragment"
     android:id="@+id/main_container"
+    app:navGraph="@navigation/main_navigation"
+    app:defaultNavHost="true"
     tools:context=".presentation.MainActivity"/>
 
