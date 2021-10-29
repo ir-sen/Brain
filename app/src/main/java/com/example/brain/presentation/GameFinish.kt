@@ -20,10 +20,7 @@ class GameFinish : Fragment() {
     private val binding: FragmentGameFinishBinding
         get() = _binding ?: throw RuntimeException("FragmentGameFinishBinding == null")
 
-
-
     private val args by navArgs<GameFinishArgs>()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +34,7 @@ class GameFinish : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupClickListeners()
-        bindViews()
+        binding.gameResult = args.gameResult
     }
 
     private fun setupClickListeners() {
@@ -47,44 +44,6 @@ class GameFinish : Fragment() {
         }
     }
 
-    private fun bindViews() {
-        binding.gameResult = args.gameResult
-        with(binding) {
-//            emojiResult.setImageResource(getSmileResId())
-//            tvRequiredAnswers.text = String.format(
-//                getString(R.string.required_score),
-//                args.gameResult.gameSettings.minCountOfRightAnswers
-//            )
-//            tvScoreAnswers.text = String.format(
-//                getString(R.string.score_answers),
-//                args.gameResult.countOfRightAnswers
-//            )
-//            tvRequiredPercentage.text = String.format(
-//                getString(R.string.required_percentage),
-//                args.gameResult.gameSettings.minPercentOfRightAnswers
-//            )
-            tvScorePercentage.text = String.format(
-                getString(R.string.score_percentage),
-                getPresentOfRightAnswers()
-            )
-        }
-    }
-
-    private fun getSmileResId() : Int {
-        return if (args.gameResult.winner) {
-            R.drawable.ic_smile
-        } else {
-            R.drawable.ic_sad
-        }
-    }
-
-    private fun getPresentOfRightAnswers() = with(args.gameResult){
-        if (countOfQuestion == 0) {
-            0
-        } else {
-            ((countOfRightAnswers / countOfQuestion.toDouble()) * 100).toInt()
-        }
-    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -94,6 +53,4 @@ class GameFinish : Fragment() {
     private fun retryGame() {
         findNavController().popBackStack()
     }
-
-
 }
