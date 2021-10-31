@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".presentation.ChoseLevel">
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="@string/chose_level" />
+
+    <Button
+        android:id="@+id/test_btn"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/test_btn" />
+
+    <Button
+        android:id="@+id/easy_btn"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/green"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/easy_btn" />
+
+    <Button
+        android:id="@+id/normal_btn"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/orange"
+        android:text="@string/normal_btn" />
+
+    <Button
+        android:id="@+id/hard_btn"
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/american_red"
+        android:text="@string/hard_btn" />
+
+
+</LinearLayout>
+</layout>
